@@ -14,16 +14,12 @@ try {
     
 }
 catch {
-    $message = Get-Error
-    Write-Error "Error occured at: $message"
+    $e = $_.Exception
+    $line = $_.InvocationInfo.ScriptLineNumber
+    $message = $e.Message
+    Write-Error "Exception occured: $message; at line $line"
 }
 finally {
     Write-Host $currentSite.Title -ForegroundColor Yellow
 }
-
-
-
-
-
-
 
