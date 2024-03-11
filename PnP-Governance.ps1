@@ -1,9 +1,15 @@
 $settings = Get-Content .\local.settings.json | ConvertFrom-Json
 
-$url = $settings.SiteUrl
-$cID = $settings.ClientID
+$connectionParameters = @{
+    ClientID = $settings.ClientID
+    Thumbprint = $settings.thumbprint
+    Tenant = $settings.tenant
+    TenantAdminUrl = $settings.adminUrl
+}
 
-Connect-PnPOnline -Url $url -ClientId $cID -Credentials $settings.Account
+$url = $settings.SiteUrl
+
+Connect-PnPOnline -Url $url @connectionParameters
 
 $web = Get-PnPWeb
 
