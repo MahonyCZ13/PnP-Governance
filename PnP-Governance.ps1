@@ -1,4 +1,6 @@
-$settings = Get-Content .\local.settings.json | ConvertFrom-Json
+# Sandbox script
+
+$settings = Get-Content -Path "$PSScriptRoot\local.settings.json" | ConvertFrom-Json
 
 $connectionParameters = @{
     ClientID = $settings.ClientID
@@ -22,4 +24,3 @@ catch {
 finally {
     Write-Host $currentSite.Title -ForegroundColor Yellow
 }
-
