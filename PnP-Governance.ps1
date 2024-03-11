@@ -6,11 +6,24 @@ $connectionParameters = @{
     Tenant = $settings.tenant
     TenantAdminUrl = $settings.adminUrl
 }
-
 $url = $settings.SiteUrl
 
-Connect-PnPOnline -Url $url @connectionParameters
+try {
+    $conn = Connect-PnPOnline -Url $url @connectionParameters -ReturnConnection
+    $currentSite = Get-PnPTenantSite -Connection $conn -Detailed -Identity $url
+    
+}
+catch {
+    $message = Get-Error
+    Write-Error "Error occured at: $message"
+}
+finally {
+    Write-Host $currentSite.Title -ForegroundColor Yellow
+}
 
-$web = Get-PnPWeb
 
-Write-Host $web.Title
+
+
+
+
+
