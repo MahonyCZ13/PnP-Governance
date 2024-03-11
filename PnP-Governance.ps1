@@ -8,11 +8,12 @@ $connectionParameters = @{
     Tenant = $settings.tenant
     TenantAdminUrl = $settings.adminUrl
 }
+
 $url = $settings.SiteUrl
 
 try {
-    $conn = Connect-PnPOnline -Url $url @connectionParameters -ReturnConnection
-    $currentSite = Get-PnPTenantSite -Connection $conn -Detailed -Identity $url
+    #$conn = Connect-PnPOnline -Url $url @connectionParameters -ReturnConnection
+    #$currentSite = Get-PnPTenantSite -Connection $conn -Detailed -Identity $url
     
 }
 catch {
@@ -21,6 +22,7 @@ catch {
     $message = $e.Message
     Write-Error "Exception occured: $message; at line $line"
 }
-finally {
-    Write-Host $currentSite.Title -ForegroundColor Yellow
-}
+
+Connect-PnPOnline -Url $url @connectionParameters
+#Add-PnPSiteCollectionAppCatalog -Site $url
+Write-Host "Done!" -ForegroundColor Green
