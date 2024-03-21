@@ -25,4 +25,6 @@ catch {
 
 Connect-PnPOnline -Url $url @connectionParameters
 #Add-PnPSiteCollectionAppCatalog -Site $url
+$web = Get-PnPWeb
+Write-Host $web.Title
 Write-Host "Done!" -ForegroundColor Green
